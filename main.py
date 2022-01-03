@@ -95,7 +95,7 @@ class WindowClass(QMainWindow, form_class) :
         try:
             with open(s + '.p', 'rb') as file:
                 self.dict = pickle.load(file)
-            self.dict.sort(key=lambda table : table[3])
+            self.dict.sort(reverse=True, key=lambda table : table[3])
             self.DictList.setRowCount(len(self.dict))
             for i in range(len(self.dict)):
                 for j in range(len(self.dict[i])):
