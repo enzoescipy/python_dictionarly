@@ -30,13 +30,12 @@ class WindowClass(QMainWindow, form_class) :
             self.english = pickle.load(file)
 
 
-
         self.setupUi(self)
 
         self.translator = Translator()
         self.testnum = 0
 
-        self.setWindowTitle('동꼬의 단어장')
+        self.setWindowTitle('동효의 단어장')
         self.setWindowIcon(QIcon("book-24px.svg"))
 
         self.go.clicked.connect(self.saveitem)
@@ -59,6 +58,8 @@ class WindowClass(QMainWindow, form_class) :
 
         self.temptest.clicked.connect(self.tempteststart)
 
+        self.filename.setText("selfeng-first-1") #set title.
+
 
     def store(self):
         if self.Save.text() == '정말 저장?':
@@ -69,23 +70,23 @@ class WindowClass(QMainWindow, form_class) :
                 self.Save.setText('저장')
                 self.Load.setText('불러오기')
                 self.Load.clicked.connect(self.load)
-                self.Load.clicked.disconnect(self.goback)
+                self.Load.clicked.disconnect(self.get)
             except:
                 self.filename.setText('cannot find file.')
                 self.Save.setText('저장')
                 self.Load.setText('불러오기')
                 self.Load.clicked.connect(self.load)
-                self.Load.clicked.disconnect(self.goback)
+                self.Load.clicked.disconnect(self.get)
         else:
             self.Save.setText('정말 저장?')
             self.Load.setText('취소!')
             self.Load.clicked.disconnect(self.load)
-            self.Load.clicked.connect(self.goback)
-    def goback(self):
+            self.Load.clicked.connect(self.get)
+    def get(self):
         self.Save.setText('저장')
         self.Load.setText('불러오기')
         self.Load.clicked.connect(self.load)
-        self.Load.clicked.disconnect(self.goback)
+        self.Load.clicked.disconnect(self.get)
 
 
 
@@ -94,6 +95,7 @@ class WindowClass(QMainWindow, form_class) :
         try:
             with open(s + '.p', 'rb') as file:
                 self.dict = pickle.load(file)
+            self.dict.sort(key=lambda table : table[3])
             self.DictList.setRowCount(len(self.dict))
             for i in range(len(self.dict)):
                 for j in range(len(self.dict[i])):
@@ -102,7 +104,7 @@ class WindowClass(QMainWindow, form_class) :
             self.filename.setText('cannot find file.')
 
     def saveitem(self):
-        do = [self.TypeEng.text(), self.TypeKor.text(), self.TypeMemo.text(), 5]
+        do = [self.TypeEng.text(), self.TypeKor.text(), self.TypeMemo.text(), 5]  #
         self.TypeEng.clear()
         self.TypeKor.clear()
         if do not in self.dict:
