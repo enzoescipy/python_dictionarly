@@ -42,9 +42,9 @@ class WindowClass(QMainWindow, form_class) :
         self.go.clicked.connect(self.saveitem)
         self.dell.clicked.connect(self.dellitem)
         self.TypeEng.textChanged.connect(self.osusumegogoeng)
-        self.TypeEng.returnPressed.connect(self.transengtokor)
+        self.TypeEng.returnPressed.connect(self.saveitem)
         self.TypeKor.textChanged.connect(self.osusumegogokor)
-        self.TypeKor.returnPressed.connect(self.transkortoeng)
+        self.TypeKor.returnPressed.connect(self.saveitem)
 
         self.osusumeeng.activated.connect(self.osusumechangeeng)
         self.osusumekor.activated.connect(self.osusumechangekor)
@@ -193,13 +193,19 @@ class WindowClass(QMainWindow, form_class) :
             self.osusumekor.addItem(word)
     def transengtokor(self):
         typo = self.TypeEng.text()
-        trans = self.translator.translate(typo, dest='ko')
-        self.TypeKor.setText(trans.text)
+        try:
+            trans = self.translator.translate(typo, dest='ko')
+            self.TypeKor.setText(trans.text)
+        except AttributeError as err :
+            print(err)
     def transkortoeng(self):
         typo = self.TypeKor.text()
-        trans = self.translator.translate(typo, dest='en')
-        self.TypeEng.setText(trans.text)
-
+        try :
+            trans = self.translator.translate(typo, dest='en')
+            self.TypeEng.setText(trans.text)
+        except AttributeError as err :
+            print(err)
+        
     def tempteststart(self):
         self.temptest.setText('다음')
         self.test.setText('시험 끝내기')
