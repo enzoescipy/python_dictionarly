@@ -143,11 +143,13 @@ class WindowClass(QMainWindow, form_class) :
                             self.DictList.setItem(i, 3, QTableWidgetItem(str(self.dict[i][3])))
                             if self.dict[i][3] == 0:
                                 self.dellitem()
+                
+                self.DictList.setCurrentCell(index + 1, self.DictList.currentColumn())
     def plu_count(self):
         if self.DictList.currentColumn() == 0:
             if self.DictList.currentItem() != None:
                 item = self.DictList.currentItem().text()
-
+                index = self.DictList.currentRow()
                 hahadict = copy.deepcopy(self.dict)
 
                 for i in range(len(hahadict)):
@@ -155,6 +157,8 @@ class WindowClass(QMainWindow, form_class) :
                         if hahadict[i][j] == item:
                             self.dict[i][3] += 1
                             self.DictList.setItem(i, 3, QTableWidgetItem(str(self.dict[i][3])))
+                            
+                self.DictList.setCurrentCell(index + 1, self.DictList.currentColumn())
 
 
     def makecsv(self):
