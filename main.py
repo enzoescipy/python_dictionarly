@@ -7,6 +7,12 @@ import pandas as pd
 import os
 import copy
 from googletrans import Translator
+from pynput import keyboard
+from pynput.mouse import Controller as Controller_mouse
+from pynput.keyboard import Controller as Controller_keyboard
+from pynput.mouse import Button  
+
+
 
 
 def resource_path(relative_path):
@@ -24,6 +30,8 @@ class WindowClass(QMainWindow, form_class) :
     def __init__(self) :
         super().__init__()
         self.dict = []
+        self.mouse = Controller_mouse()
+        self.keyboard = Controller_keyboard()
         with open('korean.p', 'rb') as file:
             self.korean = pickle.load(file)
         with open('english.p', 'rb') as file:
@@ -38,15 +46,20 @@ class WindowClass(QMainWindow, form_class) :
         self.setWindowTitle('동효의 단어장')
         self.setWindowIcon(QIcon("book-24px.svg"))
 
+        self.langAlt()
+
         self.go.clicked.connect(self.saveitem)
         self.dell.clicked.connect(self.dellitem)
-        self.TypeEng.textChanged.connect(self.osusumegogoeng)
-        self.TypeEng.returnPressed.connect(self.saveitem)
-        self.TypeKor.textChanged.connect(self.osusumegogokor)
+        #self.TypeEng.textChanged.connect(self.osusumegogoeng)
+        self.TypeEng.returnPressed.connect(self.convertToKor)
+        self.TypeEng.returnPressed.connect(self.langAlt)
+        #self.TypeKor.textChanged.connect(self.osusumegogokor)
         self.TypeKor.returnPressed.connect(self.saveitem)
+        self.TypeKor.returnPressed.connect(self.convertToEng)
+        self.TypeKor.returnPressed.connect(self.langAlt)
 
-        self.osusumeeng.activated.connect(self.osusumechangeeng)
-        self.osusumekor.activated.connect(self.osusumechangekor)
+        #self.osusumeeng.activated.connect(self.osusumechangeeng)
+        #self.osusumekor.activated.connect(self.osusumechangekor)
 
         self.Save.clicked.connect(self.store)
         self.Load.clicked.connect(self.load)
@@ -102,6 +115,59 @@ class WindowClass(QMainWindow, form_class) :
                     self.DictList.setItem(i, j, QTableWidgetItem(str(self.dict[i][j])))
         except:
             self.filename.setText('cannot find file.')
+    
+    def langAlt(self):
+        self.keyboard.press(keyboard.KeyCode.from_vk(21))
+        self.keyboard.release(keyboard.KeyCode.from_vk(21))
+
+    def convertToEng(self):
+        #get and set the Eng mouse position.
+        parent_stack = [self.TypeEng]
+        parent_pos = [self.TypeEng.pos()]
+        i = 0
+        while True:
+            parent = parent_stack[i].parentWidget()
+            if parent == None:
+                break
+            parent_stack.append(parent)
+            parent_pos.append(parent.pos())
+            i += 1
+        xsum = 0
+        ysum = 0
+        for pos in parent_pos:
+            xsum += pos.x()
+            ysum += pos.y()
+
+        icon = self.iconSize()
+        self.mouse.position = (xsum + 10, ysum + icon.height() + 10)
+
+        #click raising
+        self.mouse.click(Button.left, 1)
+
+    def convertToKor(self):
+        #get and set the Kor mouse position.
+        parent_stack = [self.TypeKor]
+        parent_pos = [self.TypeKor.pos()]
+        i = 0
+        while True:
+            parent = parent_stack[i].parentWidget()
+            if parent == None:
+                break
+            parent_stack.append(parent)
+            parent_pos.append(parent.pos())
+            i += 1
+        xsum = 0
+        ysum = 0
+        for pos in parent_pos:
+            xsum += pos.x()
+            ysum += pos.y()
+
+        icon = self.iconSize()
+        self.mouse.position = (xsum + 10, ysum + icon.height() + 10)
+
+        #click raising
+        self.mouse.click(Button.left, 1)
+
 
     def saveitem(self):
         do = [self.TypeEng.text(), self.TypeKor.text(), self.TypeMemo.text(), 5]  #
