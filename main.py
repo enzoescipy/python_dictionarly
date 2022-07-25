@@ -43,7 +43,7 @@ class WindowClass(QMainWindow, form_class) :
         self.translator = Translator()
         self.testnum = 0
 
-        self.setWindowTitle('동효의 단어장')
+        self.setWindowTitle('빠르고 강력한 한국-영어 단어장! 빠강단!')
         self.setWindowIcon(QIcon("book-24px.svg"))
 
         self.langAlt()
