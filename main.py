@@ -72,6 +72,15 @@ class WindowClass(QMainWindow, form_class) :
         self.temptest.clicked.connect(self.tempteststart)
 
         self.filename.setText("selfeng-first-1") #set title.
+    
+    def closeEvent(self, event):
+        choice = QMessageBox.question(self, '종료',
+                                            "저장하지 않은 단어 및 파일은 완전히 손실됩니다. \n 이대로 종료하시겠습니까?",
+                                            QMessageBox.Yes | QMessageBox.No)
+        if choice == QMessageBox.Yes:
+            sys.exit()
+        else:
+            pass
 
 
     def store(self):
@@ -305,6 +314,7 @@ class WindowClass(QMainWindow, form_class) :
         self.temptest.clicked.disconnect(self.temptestgo)
         self.test.clicked.disconnect(self.temptestend)
     def reload(self):
+        self.dict.sort(reverse=True, key=lambda table : table[3])
         self.DictList.setRowCount(len(self.dict))
         for i in range(len(self.dict)):
             for j in range(len(self.dict[i])):

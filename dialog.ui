@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>941</width>
-    <height>658</height>
+    <width>1125</width>
+    <height>538</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -18,8 +24,8 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>921</width>
-     <height>471</height>
+     <width>1111</width>
+     <height>521</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
@@ -40,10 +46,24 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="TypeKor"/>
+       <widget class="QLineEdit" name="TypeKor">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="osusumekor"/>
+       <widget class="QComboBox" name="osusumekor">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -57,7 +77,14 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="TypeMemo"/>
+       <widget class="QLineEdit" name="TypeMemo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -83,17 +110,6 @@
          <widget class="QPushButton" name="temptest">
           <property name="text">
            <string>간이 시험</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="1" rowspan="2">
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="go">
-          <property name="text">
-           <string>등록</string>
           </property>
          </widget>
         </item>
@@ -166,10 +182,33 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="1" rowspan="2">
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="go">
+          <property name="text">
+           <string>등록</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </item>
     <item row="0" column="0" rowspan="4">
      <widget class="QTableWidget" name="DictList">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="rowCount">
        <number>0</number>
       </property>
@@ -196,7 +235,7 @@
       </column>
       <column>
        <property name="text">
-        <string>카운트</string>
+        <string>난이도</string>
        </property>
       </column>
      </widget>
@@ -218,10 +257,24 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="TypeEng"/>
+       <widget class="QLineEdit" name="TypeEng">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="osusumeeng"/>
+       <widget class="QComboBox" name="osusumeeng">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
