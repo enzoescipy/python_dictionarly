@@ -11,6 +11,7 @@ from pynput import keyboard
 from pynput.mouse import Controller as Controller_mouse
 from pynput.keyboard import Controller as Controller_keyboard
 from pynput.mouse import Button  
+import random
 
 
 
@@ -288,6 +289,7 @@ class WindowClass(QMainWindow, form_class) :
             print(err)
         
     def tempteststart(self):
+        self.reload_shuffle()
         self.temptest.setText('다음')
         self.test.setText('시험 끝내기')
 
@@ -297,12 +299,12 @@ class WindowClass(QMainWindow, form_class) :
         self.test.clicked.disconnect(self.makecsv)
         self.temptest.clicked.disconnect(self.tempteststart)
     def temptestgo(self):
-        self.reload()
+        self.reload_notSort()
         for i in range(self.testnum,len(self.dict),1):
             self.DictList.setItem(i, 1, QTableWidgetItem('????'))
         self.testnum += 1
     def temptestend(self):
-        self.reload()
+        self.reload_shuffle()
         self.testnum = 0
 
         self.temptest.setText('간이 시험')
@@ -313,12 +315,25 @@ class WindowClass(QMainWindow, form_class) :
 
         self.temptest.clicked.disconnect(self.temptestgo)
         self.test.clicked.disconnect(self.temptestend)
+    def reload_notSort(self):
+        self.DictList.setRowCount(len(self.dict))
+        for i in range(len(self.dict)):
+            for j in range(len(self.dict[i])):
+                self.DictList.setItem(i, j, QTableWidgetItem(str(self.dict[i][j])))
     def reload(self):
         self.dict.sort(reverse=True, key=lambda table : table[3])
         self.DictList.setRowCount(len(self.dict))
         for i in range(len(self.dict)):
             for j in range(len(self.dict[i])):
                 self.DictList.setItem(i, j, QTableWidgetItem(str(self.dict[i][j])))
+    def reload_shuffle(self):
+        random.shuffle(self.dict)
+        self.dict.sort(reverse=True, key=lambda table : table[3])
+        self.DictList.setRowCount(len(self.dict))
+        for i in range(len(self.dict)):
+            for j in range(len(self.dict[i])):
+                self.DictList.setItem(i, j, QTableWidgetItem(str(self.dict[i][j])))
+
 
 
 if __name__ == "__main__" :
