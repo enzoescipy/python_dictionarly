@@ -149,10 +149,14 @@ class WindowClass(QMainWindow, form_class) :
             ysum += pos.y()
 
         icon = self.iconSize()
+        pos_before = self.mouse.position
         self.mouse.position = (xsum + 10, ysum + icon.height() + 10)
 
         #click raising
         self.mouse.click(Button.left, 1)
+
+        #return its position back.
+        self.mouse.position = pos_before
 
     def convertToKor(self):
         #get and set the Kor mouse position.
@@ -173,11 +177,14 @@ class WindowClass(QMainWindow, form_class) :
             ysum += pos.y()
 
         icon = self.iconSize()
+        pos_before = self.mouse.position
         self.mouse.position = (xsum + 10, ysum + icon.height() + 10)
 
         #click raising
         self.mouse.click(Button.left, 1)
 
+        #return its position back.
+        self.mouse.position = pos_before
 
     def saveitem(self):
         do = [self.TypeEng.text(), self.TypeKor.text(), self.TypeMemo.text(), 5]  #
